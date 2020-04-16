@@ -68,11 +68,15 @@ class Play extends Phaser.Scene {
         }
         this.scoreLeft = this.add.text(69, 54, this.p1Score, scoreConfig);
 
+        // time display
+        this.timeRight = this.add.text(game.config.width - 169, 54, game.settings.gameTimer / 1000, scoreConfig);
+
         // game over flag
         this.gameOver = false;
 
         // 60-second play clock
         scoreConfig.fixedWidth = 0;
+        this.currentTime = this.time.now; // initial time
         this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
             this.add.text(game.config.width / 2, game.config.height / 2, 'GAME OVER', scoreConfig).setOrigin(0.5);
             this.add.text(game.config.width / 2, game.config.height / 2 + 64, '(F)ire to Restart or ← for Menu', scoreConfig).setOrigin(0.5);
@@ -99,6 +103,9 @@ class Play extends Phaser.Scene {
             this.ship02.update();
             this.ship03.update();
             this.shipAlpha.update();
+
+            //this.timeRight.text = Math.floor(this.time.now / 1000) - 1;
+            this.timeRight.text = this.currentTime;
         }
 
         // check collisions
