@@ -5,12 +5,19 @@ class Menu extends Phaser.Scene {
 
     preload() {
         // load audio
-        this.load.audio('sfx_select', './assets/blip_select12.wav');
-        this.load.audio('sfx_explosion', './assets/explosion38.wav');
-        this.load.audio('sfx_rocket', './assets/rocket_shot.wav');
+        this.load.audio('sfx_menu', './assets/Treason.wav');
+        this.load.audio('sfx_select', './assets/Do-It!.wav');
+        this.load.audio('sfx_explosion', './assets/JediDeath1.wav');
+        this.load.audio('sfx_explosion2', './assets/WinduDeath.wav');
+        this.load.audio('sfx_rocket', './assets/Shoot.wav');
+        this.load.audio('sfx_gameover', './UnlimitedPower!.wav');
     }
 
     create() {
+        // add main theme
+        this.menuSound = this.sound.add('sfx_menu');
+        this.menuSound.play();
+
         // menu display
         let menuConfig = {
             fontFamily: 'Courier',
