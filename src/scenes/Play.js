@@ -76,7 +76,7 @@ class Play extends Phaser.Scene {
 
         // 60-second play clock
         scoreConfig.fixedWidth = 0;
-        this.currentTime = this.time.now; // initial time
+        this.initialTime = this.time.now; // initial time
         this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
             this.add.text(game.config.width / 2, game.config.height / 2, 'GAME OVER', scoreConfig).setOrigin(0.5);
             this.add.text(game.config.width / 2, game.config.height / 2 + 64, '(F)ire to Restart or ← for Menu', scoreConfig).setOrigin(0.5);
@@ -98,14 +98,22 @@ class Play extends Phaser.Scene {
         this.starfield.tilePositionX -= 4;
 
         if (!this.gameOver) {
-            this.p1Rocket.update();         // update rocket sprite
-            this.ship01.update();           // update spaceships (x4)
+            
+            // Update rocket and ships
+            this.p1Rocket.update();
+            this.ship01.update();
             this.ship02.update();
             this.ship03.update();
             this.shipAlpha.update();
 
-            //this.timeRight.text = Math.floor(this.time.now / 1000) - 1;
-            this.timeRight.text = this.currentTime;
+            // Update timer
+            let timeRemaining = Math.floor((game.settings.gameTimer - (this.time.now - this.initialTime)) / 1000) + 1;
+            if (timeRemaining > 0) {
+                this.timeRight.text = timeRemaining;
+            }
+            else {
+                this.timeRight.text = 0;
+            }
         }
 
         // check collisions
