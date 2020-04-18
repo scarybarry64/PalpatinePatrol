@@ -5,6 +5,12 @@ class Play extends Phaser.Scene {
 
     preload() {
         // load images/tile sprite
+        this.load.image("hand", "./assets/hand.png");
+        this.load.image("lightning", "./assets/lightning.png");
+        this.load.image("jedi1", "./assets/jedi1.png");
+        this.load.image("jedi2", "./assets/jedi2.png");
+        this.load.image("windu", "./assets/windu.png");
+
         this.load.image("rocket", "./assets/rocket.png");
         this.load.image("spaceship", "./assets/spaceship.png");
         this.load.image("spaceship alpha", "./assets/spaceship-alpha.png");
@@ -28,18 +34,21 @@ class Play extends Phaser.Scene {
         this.add.rectangle(37, 42, 566, 64, 0x00FF00).setOrigin(0, 0);
 
         // add rocket (p1)
-        this.p1Rocket = new Rocket(this, game.config.width / 2, 405, "rocket").setScale(0.5, 0.5).setOrigin(0, 0);
+        this.p1Rocket = new Rocket(this, game.config.width / 2, 405, "lightning").setOrigin(0, 0);
 
         // add controllable hand
-        this.palpatineHand = new PalpatineHand(this, game.config.width / 2, 431, "rocket", 0, false).setScale(0.5, 0.5).setOrigin(0, 0);
+        this.palpatineHand = new PalpatineHand(this, game.config.width / 2, game.config.height - 40, "hand", 0, false).setOrigin(0, 0);
 
         // add spaceship (x3)
-        this.ship01 = new Spaceship(this, game.config.width + 192, 163, "spaceship", 0, 30).setOrigin(0, 0);
-        this.ship02 = new Spaceship(this, game.config.width + 96, 211, "spaceship", 0, 20).setOrigin(0, 0);
+        this.ship01 = new Spaceship(this, game.config.width + 192, 163, "jedi1", 0, 30).setOrigin(0, 0);
+        this.ship02 = new Spaceship(this, game.config.width + 96, 211, "jedi2", 0, 20).setOrigin(0, 0);
+
+
+
         this.ship03 = new Spaceship(this, game.config.width, 259, "spaceship", 0, 10).setOrigin(0, 0);
 
         // add spaceship alpha
-        this.shipAlpha = new SpaceshipAlpha(this, 0, 115, "spaceship alpha", 0, 60).setOrigin(0, 0);
+        this.shipAlpha = new SpaceshipAlpha(this, 0, 115, "windu", 0, 60).setOrigin(0, 0);
 
         // define keyboard keys
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
