@@ -1,6 +1,6 @@
-// Spaceship Alpha prefab
+// Mace Windu prefab
 // Faster, smaller, worth more points, looks different
-class SpaceshipAlpha extends Phaser.GameObjects.Sprite {
+class Windu extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, texture, frame, pointValue) {
         super(scene, x, y, texture, frame);
 

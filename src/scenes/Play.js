@@ -11,7 +11,7 @@ class Play extends Phaser.Scene {
         this.load.image("windu", "./assets/windu.png");
         this.load.image("lightning", "./assets/lightning.png");
 
-        this.load.image("rocket", "./assets/rocket.png");
+        this.load.image("lightning", "./assets/lightning.png");
         this.load.image("spaceship", "./assets/spaceship.png");
         this.load.image("spaceship alpha", "./assets/spaceship-alpha.png");
         this.load.image("starfield", "./assets/starfield.png");
@@ -33,22 +33,19 @@ class Play extends Phaser.Scene {
         // green UI background
         this.add.rectangle(37, 42, 566, 64, 0x00FF00).setOrigin(0, 0);
 
-        // add rocket (p1)
-        this.p1Rocket = new Rocket(this, game.config.width / 2, 405, "lightning").setOrigin(0, 0);
+        // add lightning (p1)
+        this.lightning = new Lightning(this, game.config.width / 2, 405, "lightning").setOrigin(0, 0);
 
         // add controllable hand
-        this.palpatineHand = new Palpatine(this, game.config.width / 2, game.config.height - 40, "palpatine", 0, false).setOrigin(0, 0);
+        this.palpatine = new Palpatine(this, game.config.width / 2, game.config.height - 40, "palpatine", 0, false).setOrigin(0, 0);
 
         // add spaceship (x3)
-        this.ship01 = new Spaceship(this, game.config.width + 192, 163, "jedi1", 0, 30).setOrigin(0, 0);
-        this.ship02 = new Spaceship(this, game.config.width + 96, 211, "jedi2", 0, 20).setOrigin(0, 0);
-
-
-
-        this.ship03 = new Spaceship(this, game.config.width, 259, "spaceship", 0, 10).setOrigin(0, 0);
+        this.jedi1 = new Jedi(this, game.config.width + 192, 163, "jedi1", 0, 30, false).setOrigin(0, 0);
+        this.jedi2 = new Jedi(this, game.config.width + 96, 211, "jedi2", 0, 20, false).setOrigin(0, 0);
+        this.jedi3 = new Jedi(this, game.config.width, 259, "jedi1", 0, 10, false).setOrigin(0, 0);
 
         // add spaceship alpha
-        this.shipAlpha = new SpaceshipAlpha(this, 0, 115, "windu", 0, 60).setOrigin(0, 0);
+        this.windu = new Jedi(this, 0, 115, "windu", 0, 60, true).setOrigin(0, 0);
 
         // define keyboard keys
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
@@ -112,14 +109,14 @@ class Play extends Phaser.Scene {
 
         if (!this.gameOver) {
             
-            this.palpatineHand.update();
+            this.palpatine.update();
 
-            // Update rocket and ships
-            this.p1Rocket.update();
-            this.ship01.update();
-            this.ship02.update();
-            this.ship03.update();
-            this.shipAlpha.update();
+            // Update lightning and ships
+            this.lightning.update();
+            this.jedi1.update();
+            this.jedi2.update();
+            this.jedi3.update();
+            this.windu.update();
 
             // Update timer
             let timeRemaining = Math.floor((game.settings.gameTimer - (this.time.now - this.initialTime)) / 1000) + 1;
@@ -132,30 +129,30 @@ class Play extends Phaser.Scene {
         }
 
         // check collisions
-        if (this.checkCollision(this.p1Rocket, this.ship03)) {
-            this.p1Rocket.reset();
-            this.shipExplode(this.ship03);
+        if (this.checkCollision(this.lightning, this.jedi3)) {
+            this.lightning.reset();
+            this.jediExplode(this.jedi3);
         }
-        if (this.checkCollision(this.p1Rocket, this.ship02)) {
-            this.p1Rocket.reset();
-            this.shipExplode(this.ship02);
+        if (this.checkCollision(this.lightning, this.jedi2)) {
+            this.lightning.reset();
+            this.jediExplode(this.jedi2);
         }
-        if (this.checkCollision(this.p1Rocket, this.ship01)) {
-            this.p1Rocket.reset();
-            this.shipExplode(this.ship01);
+        if (this.checkCollision(this.lightning, this.jedi1)) {
+            this.lightning.reset();
+            this.jediExplode(this.jedi1);
         }
-        if (this.checkCollision(this.p1Rocket, this.shipAlpha)) {
-            this.p1Rocket.reset();
-            this.shipExplode(this.shipAlpha);
+        if (this.checkCollision(this.lightning, this.windu)) {
+            this.lightning.reset();
+            this.jediExplode(this.windu);
         }
     }
 
-    checkCollision(rocket, ship) {
+    checkCollision(lightning, jedi) {
         // simple AABB checking
-        if (rocket.x < ship.x + ship.width &&
-            rocket.x + rocket.width > ship.x &&
-            rocket.y < ship.y + ship.height &&
-            rocket.height + rocket.y > ship.y) {
+        if (lightning.x < jedi.x + jedi.width &&
+            lightning.x + lightning.width > jedi.x &&
+            lightning.y < jedi.y + jedi.height &&
+            lightning.height + lightning.y > jedi.y) {
             return true;
         }
 
@@ -164,20 +161,25 @@ class Play extends Phaser.Scene {
         }
     }
 
-    shipExplode(ship) {
-        ship.alpha = 0;                         // temporarily hide ship
-        // create explosion sprite at ship's position
-        let boom = this.add.sprite(ship.x, ship.y, 'explosion').setOrigin(0, 0);
+    jediExplode(jedi) {
+        jedi.alpha = 0;                         // temporarily hide jedi
+        // create explosion sprite at jedi's position
+        let boom = this.add.sprite(jedi.x, jedi.y, 'explosion').setOrigin(0, 0);
         boom.anims.play('explode');             // play explode animation
         boom.on('animationcomplete', () => {    // callback after animation completes
-            ship.reset();                       // reset ship position
-            ship.alpha = 1;                     // make ship visible again
+            jedi.reset();                       // reset jedi position
+            jedi.alpha = 1;                     // make jedi visible again
             boom.destroy();                     // remove explosion sprite
         });
         // score increment and repaint
-        this.p1Score += ship.points;
+        this.p1Score += jedi.points;
         this.scoreLeft.text = this.p1Score;
 
-        this.sound.play('sfx_explosion');
+        if (!jedi.isMaster) {
+            this.sound.play('sfx_jedi_death');
+        }
+        else {
+            this.sound.play('sfx_windu_death');
+        }
     }
 }

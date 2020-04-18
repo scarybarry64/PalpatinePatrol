@@ -7,8 +7,8 @@ class Menu extends Phaser.Scene {
         // load audio
         this.load.audio('sfx_menu', './assets/Treason.wav');
         this.load.audio('sfx_select', './assets/Do-It!.wav');
-        this.load.audio('sfx_explosion', './assets/JediDeath1.wav');
-        this.load.audio('sfx_explosion2', './assets/WinduDeath.wav');
+        this.load.audio('sfx_jedi_death', './assets/JediDeath1.wav');
+        this.load.audio('sfx_windu_death', './assets/WinduDeath.wav');
         this.load.audio('sfx_rocket', './assets/Shoot.wav');
         this.load.audio('sfx_gameover', './assets/UnlimitedPower!.wav');
     }
