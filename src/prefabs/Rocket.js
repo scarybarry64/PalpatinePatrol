@@ -10,6 +10,8 @@ class Rocket extends Phaser.GameObjects.Sprite {
     }
 
     update() {
+        this.alpha = 0; // set invisible
+
         // left/right movement
         if (!this.isFiring) {
             if (keyLEFT.isDown && this.x >= 47) {
@@ -27,21 +29,24 @@ class Rocket extends Phaser.GameObjects.Sprite {
             this.sfxRocket.play();  // play sfx
         }
 
-        // if fired, move up
+        // if fired, appear and move up
         if (this.isFiring && this.y >= 108) {
+            this.alpha = 1;
             this.y -= 2;
         }
 
-        // reset on miss
+        // reset on miss, make invisible
         if (this.y <= 108) {
             this.isFiring = false;
+            this.alpha = 0;
             this.y = 431;
         }
     }
 
-    // reset rocket to "ground"
+    // reset rocket to "ground" and make invisible
     reset() {
         this.isFiring = false;
+        this.alpha = 0;
         this.y = 431;
     }
 }

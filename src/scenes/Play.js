@@ -28,7 +28,10 @@ class Play extends Phaser.Scene {
         this.add.rectangle(37, 42, 566, 64, 0x00FF00).setOrigin(0, 0);
 
         // add rocket (p1)
-        this.p1Rocket = new Rocket(this, game.config.width / 2, 431, "rocket").setScale(0.5, 0.5).setOrigin(0, 0);
+        this.p1Rocket = new Rocket(this, game.config.width / 2, 405, "rocket").setScale(0.5, 0.5).setOrigin(0, 0);
+
+        // add controllable hand
+        this.palpatineHand = new PalpatineHand(this, game.config.width / 2, 431, "rocket", 0, false).setScale(0.5, 0.5).setOrigin(0, 0);
 
         // add spaceship (x3)
         this.ship01 = new Spaceship(this, game.config.width + 192, 163, "spaceship", 0, 30).setOrigin(0, 0);
@@ -100,6 +103,8 @@ class Play extends Phaser.Scene {
 
         if (!this.gameOver) {
             
+            this.palpatineHand.update();
+
             // Update rocket and ships
             this.p1Rocket.update();
             this.ship01.update();
