@@ -5,11 +5,11 @@ class Play extends Phaser.Scene {
 
     preload() {
         // load images/tile sprite
-        this.load.image("hand", "./assets/hand.png");
-        this.load.image("lightning", "./assets/lightning.png");
+        this.load.image("palpatine", "./assets/palpatine.png");
         this.load.image("jedi1", "./assets/jedi1.png");
         this.load.image("jedi2", "./assets/jedi2.png");
         this.load.image("windu", "./assets/windu.png");
+        this.load.image("lightning", "./assets/lightning.png");
 
         this.load.image("rocket", "./assets/rocket.png");
         this.load.image("spaceship", "./assets/spaceship.png");
@@ -37,7 +37,7 @@ class Play extends Phaser.Scene {
         this.p1Rocket = new Rocket(this, game.config.width / 2, 405, "lightning").setOrigin(0, 0);
 
         // add controllable hand
-        this.palpatineHand = new PalpatineHand(this, game.config.width / 2, game.config.height - 40, "hand", 0, false).setOrigin(0, 0);
+        this.palpatineHand = new Palpatine(this, game.config.width / 2, game.config.height - 40, "palpatine", 0, false).setOrigin(0, 0);
 
         // add spaceship (x3)
         this.ship01 = new Spaceship(this, game.config.width + 192, 163, "jedi1", 0, 30).setOrigin(0, 0);

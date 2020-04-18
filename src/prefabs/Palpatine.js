@@ -1,6 +1,5 @@
 // Palpatine prefab
-// The hand that the player controls
-class PalpatineHand extends Phaser.GameObjects.Sprite {
+class Palpatine extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, texture, frame, status) {
         super(scene, x, y, texture, frame);
 
