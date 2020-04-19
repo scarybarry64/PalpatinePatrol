@@ -32,7 +32,7 @@ class Play extends Phaser.Scene {
         //this.add.rectangle(603, 5, 32, 455, 0xFFFFFF).setOrigin(0, 0);
 
         // green UI background
-        this.add.rectangle(37, 42, 566, 64, 0x00FF00).setOrigin(0, 0);
+        this.add.rectangle(37, 42, 566, 64, 0x8A0303).setOrigin(0, 0);
 
         // add lightning (p1)
         this.lightning = new Lightning(this, game.config.width / 2, 405, "lightning").setOrigin(0, 0);
