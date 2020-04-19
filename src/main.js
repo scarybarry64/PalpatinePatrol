@@ -15,4 +15,7 @@ game.settings = {
 }
 
 // reserve some keyboard variables
-let keyF, keyLEFT, keyRIGHT;
+let keyS, keyLEFT, keyRIGHT;
+
+// shooting status
+let isShooting;

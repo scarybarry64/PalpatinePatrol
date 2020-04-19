@@ -31,8 +31,8 @@ class Play extends Phaser.Scene {
         //this.add.rectangle(5, 5, 32, 455, 0xFFFFFF).setOrigin(0, 0);
         //this.add.rectangle(603, 5, 32, 455, 0xFFFFFF).setOrigin(0, 0);
 
-        // green UI background
-        this.add.rectangle(37, 42, 566, 64, 0x8A0303).setOrigin(0, 0);
+        // red UI background
+        this.add.rectangle(37, 10, 566, 64, 0x8A0303).setOrigin(0, 0);
 
         // add lightning (p1)
         this.lightning = new Lightning(this, game.config.width / 2, 405, "lightning").setOrigin(0, 0);
@@ -49,7 +49,7 @@ class Play extends Phaser.Scene {
         this.windu = new Jedi(this, 0, 115, "windu", 0, 60, true).setOrigin(0, 0);
 
         // define keyboard keys
-        keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
+        keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
 
@@ -76,10 +76,10 @@ class Play extends Phaser.Scene {
             },
             fixedWidth: 100
         }
-        this.scoreLeft = this.add.text(69, 54, ("Score: %1", [this.p1Score]), scoreConfig);
+        this.scoreLeft = this.add.text(69, 22, this.p1Score, scoreConfig);
 
         // time display
-        this.timeRight = this.add.text(game.config.width - 169, 54, game.settings.gameTimer / 1000, scoreConfig);
+        this.timeRight = this.add.text(game.config.width - 169, 22, game.settings.gameTimer / 1000, scoreConfig);
 
         // game over flag
         this.gameOver = false;
@@ -102,7 +102,7 @@ class Play extends Phaser.Scene {
 
     update() {
         // check key input for restart
-        if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyF)) {
+        if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyS)) {
             this.scene.restart(this.p1Score);
         }
 

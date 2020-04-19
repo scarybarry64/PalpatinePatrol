@@ -19,7 +19,7 @@ class Menu extends Phaser.Scene {
             fontFamily: 'Courier',
             fontSize: '28px',
             backgroundColor: '#8A0303',
-            color: '#000000',
+            color: '#F3B141',
             align: 'right',
             padding: {
                 top: 5,
@@ -34,9 +34,9 @@ class Menu extends Phaser.Scene {
         let textSpacer = 64;
 
         this.add.text(centerX, centerY - textSpacer, 'PALPATINE PATROL', menuConfig).setOrigin(0.5);
+        menuConfig.backgroundColor = '#F3B141';
+        menuConfig.color = '#843605';
         this.add.text(centerX, centerY, 'Use ←→ arrows to move & (S) to Shoot', menuConfig).setOrigin(0.5);
-        menuConfig.backgroundColor = '#FFFF00';
-        menuConfig.color = '#000';
         this.add.text(centerX, centerY + textSpacer, 'Press ← for Easy or → for Hard', menuConfig).setOrigin(0.5);
 
         // launch the next scene
