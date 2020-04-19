@@ -5,6 +5,7 @@ class Play extends Phaser.Scene {
 
     preload() {
         // load images/tile sprite
+        this.load.image("background", "./assets/palpatine_smiling.png");
         this.load.image("palpatine", "./assets/palpatine.png");
         this.load.image("jedi1", "./assets/jedi1.png");
         this.load.image("jedi2", "./assets/jedi2.png");
@@ -22,13 +23,13 @@ class Play extends Phaser.Scene {
 
     create() {
         // place tile sprite
-        this.starfield = this.add.tileSprite(0, 0, 640, 480, "starfield").setOrigin(0, 0);
+        this.background = this.add.tileSprite(0, 0, 640, 480, "background").setOrigin(0, 0);
 
         // white rectangle borders
-        this.add.rectangle(5, 5, 630, 32, 0xFFFFFF).setOrigin(0, 0);
-        this.add.rectangle(5, 443, 630, 32, 0xFFFFFF).setOrigin(0, 0);
-        this.add.rectangle(5, 5, 32, 455, 0xFFFFFF).setOrigin(0, 0);
-        this.add.rectangle(603, 5, 32, 455, 0xFFFFFF).setOrigin(0, 0);
+        //this.add.rectangle(5, 5, 630, 32, 0xFFFFFF).setOrigin(0, 0);
+        //this.add.rectangle(5, 443, 630, 32, 0xFFFFFF).setOrigin(0, 0);
+        //this.add.rectangle(5, 5, 32, 455, 0xFFFFFF).setOrigin(0, 0);
+        //this.add.rectangle(603, 5, 32, 455, 0xFFFFFF).setOrigin(0, 0);
 
         // green UI background
         this.add.rectangle(37, 42, 566, 64, 0x00FF00).setOrigin(0, 0);
@@ -37,7 +38,7 @@ class Play extends Phaser.Scene {
         this.lightning = new Lightning(this, game.config.width / 2, 405, "lightning").setOrigin(0, 0);
 
         // add controllable hand
-        this.palpatine = new Palpatine(this, game.config.width / 2, game.config.height - 40, "palpatine", 0, false).setOrigin(0, 0);
+        this.palpatine = new Palpatine(this, game.config.width / 2, game.config.height - 53, "palpatine", 0, false).setOrigin(0, 0);
 
         // add spaceship (x3)
         this.jedi1 = new Jedi(this, game.config.width + 192, 163, "jedi1", 0, 30, false).setOrigin(0, 0);
@@ -75,7 +76,7 @@ class Play extends Phaser.Scene {
             },
             fixedWidth: 100
         }
-        this.scoreLeft = this.add.text(69, 54, this.p1Score, scoreConfig);
+        this.scoreLeft = this.add.text(69, 54, ("Score: %1", [this.p1Score]), scoreConfig);
 
         // time display
         this.timeRight = this.add.text(game.config.width - 169, 54, game.settings.gameTimer / 1000, scoreConfig);
@@ -88,9 +89,14 @@ class Play extends Phaser.Scene {
         this.initialTime = this.time.now; // initial time
         this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
             this.add.text(game.config.width / 2, game.config.height / 2, 'GAME OVER', scoreConfig).setOrigin(0.5);
-            this.add.text(game.config.width / 2, game.config.height / 2 + 64, '(F)ire to Restart or ← for Menu', scoreConfig).setOrigin(0.5);
+            this.add.text(game.config.width / 2, game.config.height / 2 + 64, '(S)hoot to Restart or ← for Menu', scoreConfig).setOrigin(0.5);
             this.sound.play('sfx_gameover');
             this.gameOver = true;
+        }, null, this);
+
+        // Play sound halfway thru game
+        this.clock2 = this.time.delayedCall(game.settings.gameTimer / 2, () => {
+            this.sound.play('sfx_halfway');
         }, null, this);
     }
 
@@ -105,7 +111,7 @@ class Play extends Phaser.Scene {
         }
 
         // scroll starfield
-        this.starfield.tilePositionX -= 4;
+        //this.starfield.tilePositionX -= 4;
 
         if (!this.gameOver) {
             
@@ -173,7 +179,7 @@ class Play extends Phaser.Scene {
         });
         // score increment and repaint
         this.p1Score += jedi.points;
-        this.scoreLeft.text = this.p1Score;
+        this.scoreLeft.text = jedi.points;
 
         if (!jedi.isMaster) {
             this.sound.play('sfx_jedi_death');

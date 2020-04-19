@@ -5,22 +5,15 @@ class Menu extends Phaser.Scene {
 
     preload() {
         // load audio
-        this.load.audio('sfx_menu', './assets/Treason.wav');
-        this.load.audio('sfx_select', './assets/Do-It!.wav');
+        this.load.audio('sfx_start', './assets/Treason.wav');
+        this.load.audio('sfx_shooting', './assets/Ahhh.wav');
         this.load.audio('sfx_jedi_death', './assets/JediDeath1.wav');
         this.load.audio('sfx_windu_death', './assets/WinduDeath.wav');
-        this.load.audio('sfx_rocket', './assets/Shoot.wav');
+        this.load.audio('sfx_halfway', './assets/TakingOver!.wav');
         this.load.audio('sfx_gameover', './assets/UnlimitedPower!.wav');
     }
 
     create() {
-        
-        // menu sound
-        const menuSound = this.sound.add('sfx_menu');
-        menuSound.play();
-
-        //console.log("hello");
-
         // menu display
         let menuConfig = {
             fontFamily: 'Courier',
@@ -40,8 +33,8 @@ class Menu extends Phaser.Scene {
         let centerY = game.config.height / 2;
         let textSpacer = 64;
 
-        this.add.text(centerX, centerY - textSpacer, 'ROCKET PATROL', menuConfig).setOrigin(0.5);
-        this.add.text(centerX, centerY, 'Use ←→ arrows to move & (F) to Fire', menuConfig).setOrigin(0.5);
+        this.add.text(centerX, centerY - textSpacer, 'PALPATINE PATROL', menuConfig).setOrigin(0.5);
+        this.add.text(centerX, centerY, 'Use ←→ arrows to move & (S) to Shoot', menuConfig).setOrigin(0.5);
         menuConfig.backgroundColor = '#00FF00';
         menuConfig.color = '#000';
         this.add.text(centerX, centerY + textSpacer, 'Press ← for Easy or → for Hard', menuConfig).setOrigin(0.5);
@@ -61,7 +54,7 @@ class Menu extends Phaser.Scene {
                 spaceshipSpeed: 3,
                 gameTimer: 60000
             }
-            this.sound.play('sfx_select');
+            this.sound.play('sfx_start');
             this.scene.start("playScene");
         }
         if (Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
@@ -70,7 +63,7 @@ class Menu extends Phaser.Scene {
                 spaceshipSpeed: 4,
                 gameTimer: 45000
             }
-            this.sound.play('sfx_select');
+            this.sound.play('sfx_start');
             this.scene.start("playScene");
         }
     }

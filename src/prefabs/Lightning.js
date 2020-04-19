@@ -6,7 +6,7 @@ class Lightning extends Phaser.GameObjects.Sprite {
         scene.add.existing(this);   // add to existing, displayList, updateList
         this.isFiring = false;  // track rocket's firing status
 
-        this.sfxRocket = scene.sound.add('sfx_rocket'); // add rocket sfx
+        this.sfxRocket = scene.sound.add('sfx_shooting'); // add rocket sfx
     }
 
     update() {
