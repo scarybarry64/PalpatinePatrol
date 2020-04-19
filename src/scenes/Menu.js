@@ -35,7 +35,7 @@ class Menu extends Phaser.Scene {
 
         this.add.text(centerX, centerY - textSpacer, 'PALPATINE PATROL', menuConfig).setOrigin(0.5);
         menuConfig.backgroundColor = '#F3B141';
-        menuConfig.color = '#843605';
+        menuConfig.color = '#8A0303';
         this.add.text(centerX, centerY, 'Use ←→ arrows to move & (S) to Shoot', menuConfig).setOrigin(0.5);
         this.add.text(centerX, centerY + textSpacer, 'Press ← for Easy or → for Hard', menuConfig).setOrigin(0.5);
 

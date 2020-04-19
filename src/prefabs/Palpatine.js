@@ -9,11 +9,11 @@ class Palpatine extends Phaser.GameObjects.Sprite {
     update() {
         // left/right movement and sprite direction
         if (!isShooting) {
-            if (keyLEFT.isDown && this.x >= 47) {
+            if (keyLEFT.isDown && (this.x >= this.width / 2 + 3)) {
                 this.flipX = false;
                 this.x -= 2;
             }
-            else if (keyRIGHT.isDown && this.y <= 598) {
+            else if (keyRIGHT.isDown && (this.x <= game.config.width - this.width / 2 - 3)) {
                 this.flipX = true;
                 this.x += 2;
             }

@@ -34,11 +34,13 @@ class Play extends Phaser.Scene {
         // red UI background
         this.add.rectangle(37, 10, 566, 64, 0x8A0303).setOrigin(0, 0);
 
-        // add lightning (p1)
-        this.lightning = new Lightning(this, game.config.width / 2, 405, "lightning").setOrigin(0, 0);
-
         // add controllable hand
-        this.palpatine = new Palpatine(this, game.config.width / 2, game.config.height - 53, "palpatine", 0, false).setOrigin(0, 0);
+        this.palpatine = new Palpatine(this, game.config.width / 2, 0, "palpatine", 0, false);
+        this.palpatine.y = game.config.height - this.palpatine.height / 2 - 3;
+        offset = this.palpatine.width; // for updating lightning sprite
+
+        // add lightning (p1)
+        this.lightning = new Lightning(this, game.config.width / 2, 431, "lightning").setDepth(10);
 
         // add spaceship (x3)
         this.jedi1 = new Jedi(this, game.config.width + 192, 163, "jedi1", 0, 30, false).setOrigin(0, 0);
@@ -68,27 +70,32 @@ class Play extends Phaser.Scene {
             fontFamily: 'Courier',
             fontSize: '28px',
             backgroundColor: '#F3B141',
-            color: '#843605',
-            align: 'right',
+            color: '#8A0303',
+            align: 'left',
             padding: {
                 top: 5,
                 bottom: 5,
             },
-            fixedWidth: 100
+            fixedWidth: 175
         }
-        this.scoreLeft = this.add.text(69, 22, this.p1Score, scoreConfig);
+        this.scoreRight = this.add.text(69, 22, "Score: " + this.p1Score, scoreConfig);
 
         // time display
-        this.timeRight = this.add.text(game.config.width - 169, 22, game.settings.gameTimer / 1000, scoreConfig);
+        scoreConfig.align = 'right';
+        this.timeLeft = this.add.text(game.config.width - 244, 22, "Time: " + (game.settings.gameTimer / 1000), scoreConfig);
 
         // game over flag
         this.gameOver = false;
 
         // 60-second play clock
         scoreConfig.fixedWidth = 0;
+        scoreConfig.backgroundColor = '#8A0303';
+        scoreConfig.color = '#F3B141';
         this.initialTime = this.time.now; // initial time
         this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
             this.add.text(game.config.width / 2, game.config.height / 2, 'GAME OVER', scoreConfig).setOrigin(0.5);
+            scoreConfig.backgroundColor = '#F3B141';
+            scoreConfig.color = '#8A0303';
             this.add.text(game.config.width / 2, game.config.height / 2 + 64, '(S)hoot to Restart or ← for Menu', scoreConfig).setOrigin(0.5);
             this.sound.play('sfx_gameover');
             this.gameOver = true;
@@ -114,10 +121,8 @@ class Play extends Phaser.Scene {
         //this.starfield.tilePositionX -= 4;
 
         if (!this.gameOver) {
-            
-            this.palpatine.update();
-
             // Update lightning and ships
+            this.palpatine.update();
             this.lightning.update();
             this.jedi1.update();
             this.jedi2.update();
@@ -127,10 +132,10 @@ class Play extends Phaser.Scene {
             // Update timer
             let timeRemaining = Math.floor((game.settings.gameTimer - (this.time.now - this.initialTime)) / 1000) + 1;
             if (timeRemaining > 0) {
-                this.timeRight.text = timeRemaining;
+                this.timeLeft.text = "Time: " + timeRemaining;
             }
             else {
-                this.timeRight.text = 0;
+                this.timeLeft.text = "Time: 0";
             }
         }
 
@@ -179,7 +184,7 @@ class Play extends Phaser.Scene {
         });
         // score increment and repaint
         this.p1Score += jedi.points;
-        this.scoreLeft.text = jedi.points;
+        this.scoreRight.text = "Score: " + this.p1Score;
 
         if (!jedi.isMaster) {
             this.sound.play('sfx_jedi_death');

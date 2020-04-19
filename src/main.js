@@ -19,3 +19,6 @@ let keyS, keyLEFT, keyRIGHT;
 
 // shooting status
 let isShooting;
+
+// misc stuff
+let offset;

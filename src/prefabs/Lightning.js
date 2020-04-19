@@ -14,11 +14,11 @@ class Lightning extends Phaser.GameObjects.Sprite {
 
         // left/right movement
         if (!isShooting) {
-            if (keyLEFT.isDown && this.x >= 47) {
+            if (keyLEFT.isDown && (this.x >= offset / 2 + 3)) {
                 this.x -= 2;
             }
 
-            else if (keyRIGHT.isDown && this.y <= 598) {
+            else if (keyRIGHT.isDown && this.x <= (game.config.width - offset / 2 - 3)) {
                 this.x += 2;
             }
         }
@@ -30,13 +30,13 @@ class Lightning extends Phaser.GameObjects.Sprite {
         }
 
         // if fired, appear and move up
-        if (isShooting && this.y >= 108) {
+        if (isShooting && this.y >= 0 - this.height / 2) {
             this.alpha = 1;
             this.y -= 2;
         }
 
         // reset on miss, make invisible
-        if (this.y <= 108) {
+        if (this.y <= 0 - this.height / 2) {
             isShooting = false;
             this.alpha = 0;
             this.y = 431;
