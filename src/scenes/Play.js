@@ -6,7 +6,7 @@ class Play extends Phaser.Scene {
 
     preload() {
         // Load images and spritesheet
-        this.load.image("background", "./assets/palpatine_smiling.png");
+        this.load.image("background", "./assets/palpatine_smiling.PNG");
         this.load.image("palpatine", "./assets/palpatine.png");
         this.load.image("lightning", "./assets/lightning.png");
         this.load.image("jedi1", "./assets/jedi1.png");
