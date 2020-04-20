@@ -1,3 +1,8 @@
+// Barry Day
+// Professor Altice
+// CMPM 120
+// 4-19-20
+
 // Prefab for Palpatine sprite controlled by the player
 class Palpatine extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, texture, frame, status) {

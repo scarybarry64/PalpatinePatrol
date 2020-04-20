@@ -1,3 +1,8 @@
+// Barry Day
+// Professor Altice
+// CMPM 120
+// 4-19-20
+
 // Main gameplay scene
 class Play extends Phaser.Scene {
     constructor() {

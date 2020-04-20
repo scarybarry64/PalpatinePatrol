@@ -1,3 +1,8 @@
+// Barry Day
+// Professor Altice
+// CMPM 120
+// 4-19-20
+
 // Prefab for jedi the player can kill
 class Jedi extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, texture, frame, pointValue, rankStatus) {

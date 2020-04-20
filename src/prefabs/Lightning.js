@@ -1,3 +1,8 @@
+// Barry Day
+// Professor Altice
+// CMPM 120
+// 4-19-20
+
 // Prefab for the lightning the player shoots
 class Lightning extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, texture, frame) {

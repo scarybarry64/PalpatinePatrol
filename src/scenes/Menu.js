@@ -1,3 +1,8 @@
+// Barry Day
+// Professor Altice
+// CMPM 120
+// 4-19-20
+
 // Start menu scene
 class Menu extends Phaser.Scene {
     constructor() {
