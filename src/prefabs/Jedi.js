@@ -1,19 +1,18 @@
-// Jedi prefab
+// Prefab for jedi the player can kill
 class Jedi extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, texture, frame, pointValue, rankStatus) {
         super(scene, x, y, texture, frame);
+        scene.add.existing(this);
 
-        scene.add.existing(this);   // add to existing, displayList, updateList
-        // store pointValue
+        // Stores the points a jedi is worth when killed
         this.points = pointValue;
-
-        // normal jedi move to the right
-        // jedi masters move faster and to the left
+        
+        // Stores whether a jedi is a master
         this.isMaster = rankStatus;
     }
 
     update() {
-        // move normal if not master, faster if master
+        // Move right at normal speed if not master, move left and faster if master
         if (!this.isMaster) {
             this.x += game.settings.spaceshipSpeed;
         }
@@ -21,7 +20,7 @@ class Jedi extends Phaser.GameObjects.Sprite {
             this.x -= game.settings.spaceshipSpeed * 1.5;
         }
 
-        // wrap around screen bounds
+        // Wrap around screen bounds
         if (!this.isMaster) {
             if (this.x >= game.config.width + this.width) {
                 this.x = 0;
@@ -34,7 +33,7 @@ class Jedi extends Phaser.GameObjects.Sprite {
         }
     }
 
-    // reset spaceship to right side
+    // Reset to respective side
     reset() {
         if (!this.isMaster) {
             this.x = 0 - this.width;

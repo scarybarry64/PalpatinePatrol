@@ -1,41 +1,39 @@
-// Lightning prefab
+// Prefab for the lightning the player shoots
 class Lightning extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, texture, frame) {
         super(scene, x, y, texture, frame);
-
-        scene.add.existing(this);   // add to existing, displayList, updateList
-        isShooting = false;  // track lightning's firing status
-
-        this.sfxLightning = scene.sound.add('sfx_shooting'); // add lightning sfx
+        scene.add.existing(this);
+        isShooting = false;
+        this.sfxLightning = scene.sound.add('sfx_shooting');
     }
 
     update() {
-        this.alpha = 0; // set invisible
+        // Set invisible as default
+        this.alpha = 0;
 
-        // left/right movement
+        // Moves with the player, shoots from Palpatine
         if (!isShooting) {
             if (keyLEFT.isDown && (this.x >= offset / 2 + 3)) {
                 this.x -= 2;
             }
-
             else if (keyRIGHT.isDown && this.x <= (game.config.width - offset / 2 - 3)) {
                 this.x += 2;
             }
         }
 
-        // shoot button (s)
+        // Shoot button (s)
         if (Phaser.Input.Keyboard.JustDown(keyS) && !isShooting) {
             isShooting = true;
             this.sfxLightning.play();  // play sfx
         }
 
-        // if fired, appear and move up
+        // If shooting lightning, make lightning visible and move up
         if (isShooting && this.y >= 0 - this.height / 2) {
             this.alpha = 1;
             this.y -= 2;
         }
 
-        // reset on miss, make invisible
+        // On miss, reset position and make invisible
         if (this.y <= 0 - this.height / 2) {
             isShooting = false;
             this.alpha = 0;
@@ -43,7 +41,7 @@ class Lightning extends Phaser.GameObjects.Sprite {
         }
     }
 
-    // reset lightning to "ground" and make invisible
+    // On hit, do the same as on miss
     reset() {
         isShooting = false;
         this.alpha = 0;

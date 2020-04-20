@@ -1,13 +1,12 @@
-// Palpatine prefab
+// Prefab for Palpatine sprite controlled by the player
 class Palpatine extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, texture, frame, status) {
         super(scene, x, y, texture, frame);
-
-        scene.add.existing(this);   // add to existing, displayList, updateList
+        scene.add.existing(this);
     }
 
     update() {
-        // left/right movement and sprite direction
+        // Left/right movement and direction Palpatine is facing
         if (!isShooting) {
             if (keyLEFT.isDown && (this.x >= this.width / 2 + 3)) {
                 this.flipX = false;
