@@ -30,10 +30,13 @@
 //   moved existing borders
 // - Moved score to right side, added a timer display on left
 //   side, and labeled both
+// - Added beautifully-rendered background tile of the Emperor
+//   himself, to really reinforce the professional tone of the
+//   game ;)
 
 // I argue that this is worth 100 points total. Entire game
 // was overhauled, new mechanics added, and existing ones
-// polished.
+// polished. Many Jedi were killed in the process.
 
 // Thank you!
 // "UNLIMITED POWERRRRRR!!!"
